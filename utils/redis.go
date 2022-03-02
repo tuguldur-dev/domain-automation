@@ -8,7 +8,7 @@ import (
 
 func InitRedis() *redis.Client {
 	rdb := redis.NewClient(&redis.Options{
-		Addr: os.Getenv("aws.redis"),
+		Addr: os.Getenv("AWS_REDIS"),
 	})
 	return rdb
 }

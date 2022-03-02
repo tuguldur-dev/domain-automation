@@ -39,7 +39,7 @@ func Create(c *fiber.Ctx) error {
 	if err := c.BodyParser(p); err != nil {
 		return err
 	}
-	subdomain := fmt.Sprintf("%s.%s", p.Name, os.Getenv("aws.domain"))
+	subdomain := fmt.Sprintf("%s.%s", p.Name, os.Getenv("AWS_DOMAIN"))
 	config := &container.Config{
 		Image: p.Image,
 	}
@@ -65,7 +65,7 @@ func Create(c *fiber.Ctx) error {
 	if err := domain.CreateDomain(subdomain, p.Port); err != nil {
 		panic(err)
 	}
-	if _, err := utils.RSet(redis, subdomain, fmt.Sprintf("%s:%s", os.Getenv("aws.ip"), p.Port)); err != nil {
+	if _, err := utils.RSet(redis, subdomain, fmt.Sprintf("%s:%s", os.Getenv("AWS_IP"), p.Port)); err != nil {
 		panic(err)
 	}
 

@@ -12,14 +12,14 @@ import (
 func CreateDomain(name, ip_address string) error {
 	sess, err := session.NewSession(&aws.Config{
 		Region:      aws.String("us-east-1"),
-		Credentials: credentials.NewStaticCredentials(os.Getenv("aws.access"), os.Getenv("aws.secret"), ""),
+		Credentials: credentials.NewStaticCredentials(os.Getenv("AWS_ACCESS"), os.Getenv("AWS_SECRET"), ""),
 	})
 	if err != nil {
 		return err
 	}
 	recordSet := &route53.ResourceRecordSet{
 		Name:            aws.String(name),
-		ResourceRecords: []*route53.ResourceRecord{&route53.ResourceRecord{Value: aws.String(os.Getenv("aws.ip"))}},
+		ResourceRecords: []*route53.ResourceRecord{&route53.ResourceRecord{Value: aws.String(os.Getenv("AWS_IP"))}},
 		Type:            aws.String("A"),
 		TTL:             aws.Int64(300),
 	}
@@ -34,7 +34,7 @@ func CreateDomain(name, ip_address string) error {
 			},
 			Comment: aws.String(ip_address),
 		},
-		HostedZoneId: aws.String(os.Getenv("aws.host")),
+		HostedZoneId: aws.String(os.Getenv("AWS_HOST")),
 	}
 	_, err = svc.ChangeResourceRecordSets(input)
 	if err != nil {
