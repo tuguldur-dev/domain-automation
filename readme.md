@@ -2,6 +2,7 @@
 
 [![FIBO Logo](https://fibo.cloud/assets/images/logo.svg)](https://fibo.cloud/)
 
+
 Domain automation [Template]
 ## Суулгах зүйлс
 
